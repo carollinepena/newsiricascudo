@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIRI CASCUDO - Faça seu pedido</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.cdnfonts.com/css/zapfhumnst-bt" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/zapfhumnst-bt');
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            background-color: #ffcc00;
+            padding: 10px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-left: auto;
+        }
+
+        .menu-container {
+            flex: 1;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        ul li {
+            background-color: transparent;
+        }
+
+        ul li a {
+            font-family: 'ZapfHumnst BT', sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            color: #333;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li a:hover {
+            background-color: #333;
+            color: #ffcc00;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+            margin-right: 60px;
+        }
+
+        .icon-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .icon-button img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon-button .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px;
+            font-size: 12px;
+        }
+
+         .cardapio-container {
+            max-width: 750px;
+            margin: 2px auto 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffcc00;
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			position: relative;
+			z-index: 1;
+        }
+
+        .square-container img {
+            width: 430px;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+         .background-section {
+            background-image: url('imagens/fundo_cardapio.jpeg');
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            font-family: 'ZapfHumnst BT', sans-serif;
+            font-weight: bold;
+            color: #ffcc00;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .produto-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .produto {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .produto:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .produto img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .produto h1 {
+            font-size: 18px;
+            margin: 10px 0;
+            font-family: 'ZapfHumnst BT', sans-serif;
+            color: #333;
+        }
+
+        .produto p {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .produto h2 {
+            font-size: 20px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .produto form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .produto input[type="text"] {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .produto .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .produto .quantity-controls button {
+            border: none;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .produto .quantity-controls button:hover {
+            background-color: #0056b3;
+        }
+
+        .produto .add-to-cart {
+            border: none;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .produto .add-to-cart:hover {
+            background-color: #218838;
+        }
+
+        /* Estilo do modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 1001;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-item button {
+            background: none;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 768px) {
+            .carousel {
+                height: 400px;
+            }
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo {
+                margin: 0 auto;
+                margin-bottom: 10px;
+            }
+            ul {
+                justify-content: center;
+            }
+            .menu-container {
+                flex: none;
+            }
+            .square-container img {
+                width: 100%;
+                max-width: 300px; 
+            }
+            .background-section {
+                height: auto;
+                padding: 20px; 
+            }
+            .logo img {
+                margin-right: 0; 
+            }
+            .icon-button img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <div class="logo">
+            <img src="imagens/logo_pequeno_semfundo.png" alt="Logo">
+        </div>
+        <div class="menu-container">
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="cardapio.html">CARDÁPIO</a></li>
+                <li><a class="active" href="pedido.html">FAÇA SEU PEDIDO</a></li>  
+                <li><a class="active" href="atendimento.html">ATENDIMENTO</a></li>         
+                <li><a class="active" href="sobre.html">SOBRE</a></li>	
+            </ul>
+        </div>
+        <button class="icon-button" onclick="document.getElementById('modal').style.display='block'">
+            <img src="imagens/carrinho.png" alt="Carrinho">
+            <span class="badge" id="cart-badge">0</span>
+        </button>
+    </div>
+
+    <div class="background-section">
+        <div class="cardapio-container">
+            <div class="produto-container">
+                <!-- Produto 1 -->
+                <div class="produto">
+                    <img src="imagens/hamburguer_siri.jpeg" alt="Rum Malibu">
+                    <h1>SIRI JR</h1>
+                    <p>Hambúrguer pequeno com fritas</p>
+                    <h2>R$ 35,90</h2>
+                    <form>
+                        <div class="quantity-controls">
+                            <button type="button" onclick="changeQuantity(this, -1)">-</button>
+                            <input type="text" name="quantity" value="1" readonly>
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                        <input type="button" value="Adicionar" class="add-to-cart">
+                    </form>
+                </div>
+                <!-- Produto 2 -->
+                <div class="produto">
+                    <img src="imagens/hamburguer_siri_2.jpeg" alt="Vodka Absolut">
+                    <h1>SIRI DELUXE</h1>
+                    <p>Hambúrguer grande com fritas</p>
+                    <h2>R$ 45,90</h2>
+                    <form>
+                        <div class="quantity-controls">
+                            <button type="button" onclick="changeQuantity(this, -1)">-</button>
+                            <input type="text" name="quantity" value="1" readonly>
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                        <input type="button" value="Adicionar" class="add-to-cart">
+                    </form>
+                </div>
+                <!-- Produto 3 -->
+                <div class="produto">
+                    <img src="imagens/peixe_fritas.jpeg" alt="Vinho Santa Helena">
+                    <h1>FRITAS DA PÉROLA</h1>
+                    <p>Tiras de peixe frito com fritas</p>
+                    <h2>R$ 37,90</h2>
+                    <form>
+                        <div class="quantity-controls">
+                            <button type="button" onclick="changeQuantity(this, -1)">-</button>
+                            <input type="text" name="quantity" value="1" readonly>
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                        <input type="button" value="Adicionar" class="add-to-cart">
+                    </form>
+                </div>
+                <!-- Produto 4 -->
+                <div class="produto">
+                    <img src="imagens/peixe_fritas_3.jpeg" alt="Cerveja Alemã">
+                    <h1>COMBO SRA. PUFF</h1>
+                    <p>Peixe inteiro frito com fritas</p>
+                    <h2>R$ 79,90</h2>
+                    <form>
+                        <div class="quantity-controls">
+                            <button type="button" onclick="changeQuantity(this, -1)">-</button>
+                            <input type="text" name="quantity" value="1" readonly>
+                            <button type="button" onclick="changeQuantity(this, 1)">+</button>
+                        </div>
+                        <input type="button" value="Adicionar" class="add-to-cart">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('modal').style.display='none'">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <!-- Itens do carrinho -->
+            <div id="cart-items"></div>
+            <form>
+                <input type="submit" value="Finalizar Compra">
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 SIRI CASCUDO - Todos os direitos reservados.</p>
+    </footer>
+
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let cart = []; // Array para armazenar produtos no carrinho
+
+        function changeQuantity(button, amount) {
+            var input = button.parentNode.querySelector('input[name="quantity"]');
+            var currentQuantity = parseInt(input.value, 10);
+            var newQuantity = Math.max(currentQuantity + amount, 1); // Não permite quantidade menor que 1
+            input.value = newQuantity;
+        }
+
+        function addToCart(button) {
+            var produtoDiv = button.closest('.produto');
+            var nomeProduto = produtoDiv.querySelector('h1').textContent;
+            var quantidade = parseInt(produtoDiv.querySelector('input[name="quantity"]').value, 10);
+            var preco = parseFloat(produtoDiv.querySelector('h2').textContent.replace('R$ ', '').replace(',', '.'));
+
+            let itemIndex = cart.findIndex(item => item.nome === nomeProduto);
+            if (itemIndex !== -1) {
+                // Se o item já estiver no carrinho, atualize a quantidade
+                cart[itemIndex].quantidade += quantidade;
+            } else {
+                // Se o item não estiver no carrinho, adicione um novo item
+                cart.push({ nome: nomeProduto, quantidade: quantidade, preco: preco });
+            }
+            
+            updateCart();
+            updateCartBadge();
+        }
+
+        function updateCart() {
+            var cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = ''; // Limpar itens do carrinho
+
+            cart.forEach(item => {
+                var cartItemDiv = document.createElement('div');
+                cartItemDiv.className = 'cart-item';
+                cartItemDiv.innerHTML = `
+                    <p>${item.nome} - Quantidade: ${item.quantidade} - R$ ${item.preco.toFixed(2)}</p>
+                    <button onclick="removeFromCart(this)">X</button>
+                `;
+                cartItemsDiv.appendChild(cartItemDiv);
+            });
+        }
+
+        function removeFromCart(button) {
+            var itemNome = button.parentNode.querySelector('p').textContent.split(' - ')[0];
+            cart = cart.filter(item => item.nome !== itemNome);
+            updateCart();
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            var totalItems = cart.reduce((sum, item) => sum + item.quantidade, 0);
+            document.getElementById('cart-badge').textContent = totalItems;
+        }
+
+        // Adicionar evento para os botões "Adicionar"
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                addToCart(this);
+            });
+        });
+    </script>
+</body>
+</html>
